@@ -1,5 +1,5 @@
 const rankTest = require('ava');
-const { voyageProfitFactor, voyageRisk } = require('../src/rank');
+const { voyageProfitFactor, voyageRisk, captainHistoryRisk } = require('../src/rank');
 rankTest('test voyageProfitFactor voyage.zone=china and voyage.length=13 and history is null',
   t => {
     const voyage = {
@@ -215,5 +215,49 @@ rankTest('test voyageRisk voyage length is 9 and zone is west-indies', t => {
     length: 9
   }
   const result = voyageRisk(voyage);
+  t.is(result, 4);
+})
+
+rankTest('test captainHistoryRisk voyage and zone is china and history length is 5 and profit >0 and has china', t => {
+  const voyage = {
+    zone: 'china',
+    length: 5
+  }
+  const history = new Array(5)
+  history[0] =
+  {
+    zone: 'china',
+    profit: 10
+  }
+  const result = captainHistoryRisk(voyage, history);
+  t.is(result, 0);
+})
+
+rankTest('test captainHistoryRisk voyage and zone is china and history length is 1 and profit >0 and has china', t => {
+  const voyage = {
+    zone: 'china',
+    length: 5
+  }
+  const history = [
+    {
+      zone: 'china',
+      profit: 10
+    }
+  ]
+  const result = captainHistoryRisk(voyage, history);
+  t.is(result, 3);
+})
+
+rankTest('test captainHistoryRisk voyage and zone is china and history length is 4 and profit <0 and has china', t => {
+  const voyage = {
+    zone: 'china',
+    length: 5
+  }
+  const history = [{
+    zone: 'china',
+    profit: -1
+  }
+  ]
+  const result = captainHistoryRisk(voyage, history);
   t.is(result, 4);
 })
