@@ -1,5 +1,5 @@
 const rankTest = require('ava');
-const { voyageProfitFactor } = require('../src/rank');
+const { voyageProfitFactor, voyageRisk } = require('../src/rank');
 rankTest('test voyageProfitFactor voyage.zone=china and voyage.length=13 and history is null',
   t => {
     const voyage = {
@@ -163,3 +163,57 @@ rankTest('test voyageProfitFactor voyage.zone is west-indies and voyage.length i
     const result = voyageProfitFactor(voyage, history);
     t.is(result, 2);
   })
+
+rankTest('test voyageRisk voyage length is 4 and zone is china', t => {
+  const voyage = {
+    zone: 'china',
+    length: 4
+  }
+  const result = voyageRisk(voyage);
+  t.is(result, 5);
+})
+
+rankTest('test voyageRisk voyage length is 5 and zone is china', t => {
+  const voyage = {
+    zone: 'china',
+    length: 5
+  }
+  const result = voyageRisk(voyage);
+  t.is(result, 7);
+})
+
+rankTest('test voyageRisk voyage length is 8 and zone is china', t => {
+  const voyage = {
+    zone: 'china',
+    length: 8
+  }
+  const result = voyageRisk(voyage);
+  t.is(result, 7);
+})
+
+rankTest('test voyageRisk voyage length is 9 and zone is china', t => {
+  const voyage = {
+    zone: 'china',
+    length: 9
+  }
+  const result = voyageRisk(voyage);
+  t.is(result, 8);
+})
+
+rankTest('test voyageRisk voyage length is 9 and zone is east-indies', t => {
+  const voyage = {
+    zone: 'east-indies',
+    length: 9
+  }
+  const result = voyageRisk(voyage);
+  t.is(result, 8);
+})
+
+rankTest('test voyageRisk voyage length is 9 and zone is west-indies', t => {
+  const voyage = {
+    zone: 'west-indies',
+    length: 9
+  }
+  const result = voyageRisk(voyage);
+  t.is(result, 4);
+})
