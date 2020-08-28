@@ -1,21 +1,25 @@
 function printOwing(invoice) {
-  console.log('***********************');
-  console.log('**** Customer Owes ****');
-  console.log('***********************');
-
+  
   // calculate outstanding
   let outstanding = calCulateOutstanding(invoice);
-
+  
   // record due date
   invoice.dueDate = recordDueDate(invoice);
-
+  
   // print details
-  console.log(`name: ${invoice.customer}`);
-  console.log(`amount: ${outstanding}`);
-  console.log(`amount: ${invoice.dueDate.toLocaleDateString()}`);
+  printDetails(invoice, outstanding);
 }
 module.exports = {
   printOwing
+}
+
+function printDetails(invoice, outstanding) {
+  console.log('***********************');
+  console.log('**** Customer Owes ****');
+  console.log('***********************');
+  console.log(`name: ${invoice.customer}`);
+  console.log(`amount: ${outstanding}`);
+  console.log(`amount: ${invoice.dueDate.toLocaleDateString()}`);
 }
 
 function recordDueDate() {
