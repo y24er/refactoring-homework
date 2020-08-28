@@ -6,11 +6,7 @@ class Employee {
   }
 
   validateType(type) {
-    if (![
-      'engineer',
-      'manager',
-      'salesman',
-    ].includes(type)) {
+    if (typeNotIsEngineerOrManagerOrSalesman(type)) {
       throw new Error(`Employee cannot be of type ${type}`);
     }
   }
@@ -21,4 +17,12 @@ class Employee {
 }
 module.exports={
   Employee
+}
+
+function typeNotIsEngineerOrManagerOrSalesman(type) {
+  return ![
+    'engineer',
+    'manager',
+    'salesman',
+  ].includes(type);
 }
