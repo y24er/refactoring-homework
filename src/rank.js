@@ -45,10 +45,7 @@ function isZoneIsChina(voyage) {
 
 function voyageProfitFactor(voyage, history) {
   let result = 2;
-  if (isZoneIsChina(voyage)) {
-    result += 1;
-  }
-  if (isZoneIsEastIndies(voyage)) {
+  if (isZoneIsChina(voyage)||isZoneIsEastIndies(voyage)) {
     result += 1;
   }
   if (isZoneIsChina(voyage) && hasChina(history)) {
@@ -62,6 +59,7 @@ function voyageProfitFactor(voyage, history) {
     if (voyage.length > 18) {
       result -= 1;
     }
+    return result;
   }
   if (!isZoneIsChina(voyage) || !hasChina(history)) {
     if (history.length > 8) {
