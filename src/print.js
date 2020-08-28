@@ -1,9 +1,6 @@
 function printOwing(invoice) {
-  
   let outstanding = calCulateOutstanding(invoice);
-  
   invoice.dueDate = recordDueDate(invoice);
-  
   printDetails(invoice, outstanding);
 }
 module.exports = {
