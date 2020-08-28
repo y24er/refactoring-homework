@@ -10,9 +10,10 @@ printTest.test('test1 printOwing method',t=>{
             }
         ]
     }
-    t.snapshot(`***********************\n`+
+    t.is(printOwing(invoice),`***********************\n`+
     `**** Customer Owes ****\n`+
     `***********************\n`+
     `name: Jessie\n`+
-    `amount: 9/27/2020\n`,printOwing(invoice))
+    `amount: 10\n`+
+    `amount: 9/27/2020\n`)
 })
