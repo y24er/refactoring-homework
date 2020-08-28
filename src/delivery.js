@@ -1,6 +1,12 @@
 function deliveryDate(anOrder, isRush) {
-  if (isRush) {
-    let deliveryTime;
+  return isRush?calculateDeliveryTimeWhenisRushIsTrue(anOrder):calculateDeliveryTimeWhenisRushIsFalse(anOrder);
+}
+module.exports = {
+  deliveryDate
+}
+
+function calculateDeliveryTimeWhenisRushIsTrue(anOrder){
+  let deliveryTime;
     if (isDeliveryStateIsMAOrCT(anOrder)) {
       deliveryTime = 1;
       return plusDay(anOrder, deliveryTime, 1);
@@ -12,9 +18,10 @@ function deliveryDate(anOrder, isRush) {
       deliveryTime = 3;
     }
     return plusDay(anOrder, deliveryTime, 1);
-  }
-  else {
-    let deliveryTime;
+}
+
+function calculateDeliveryTimeWhenisRushIsFalse(anOrder){
+  let deliveryTime;
     if (isDeliveryStateIsMAOrCTorNY(anOrder)) {
       deliveryTime = 2;
       return plusDay(anOrder, deliveryTime, 2);
@@ -26,12 +33,7 @@ function deliveryDate(anOrder, isRush) {
       deliveryTime = 4;
     }
     return plusDay(anOrder, deliveryTime, 2);
-  }
 }
-module.exports = {
-  deliveryDate
-}
-
 function isDeliveryStateIsMEOrNH(anOrder) {
   return [
     'ME',
