@@ -1,44 +1,66 @@
-function deliveryDate (anOrder, isRush) {
+function deliveryDate(anOrder, isRush) {
   if (isRush) {
     let deliveryTime;
-    if ([
-      'MA',
-      'CT',
-    ].includes(anOrder.deliveryState)) {
+    if (isDeliveryStateIsMAOrCT(anOrder)) {
       deliveryTime = 1;
+      return plusDay(anOrder, deliveryTime, 1);
     }
-    else if ([
-      'NY',
-      'NH',
-    ].includes(anOrder.deliveryState)) {
+    if (isDeliveryStateIsNYOrNH(anOrder)) {
       deliveryTime = 2;
     }
     else {
       deliveryTime = 3;
     }
-    return anOrder.placedOn.plusDays(1 + deliveryTime);
+    return plusDay(anOrder, deliveryTime, 1);
   }
   else {
     let deliveryTime;
-    if ([
-      'MA',
-      'CT',
-      'NY',
-    ].includes(anOrder.deliveryState)) {
+    if (isDeliveryStateIsMAOrCTorNY(anOrder)) {
       deliveryTime = 2;
+      return plusDay(anOrder, deliveryTime, 2);
     }
-    else if ([
-      'ME',
-      'NH',
-    ].includes(anOrder.deliveryState)) {
+    if (isDeliveryStateIsMEOrNH(anOrder)) {
       deliveryTime = 3;
     }
     else {
       deliveryTime = 4;
     }
-    return anOrder.placedOn.plusDays(2 + deliveryTime);
+    return plusDay(anOrder, deliveryTime, 2);
   }
 }
-module.exports={
+module.exports = {
   deliveryDate
+}
+
+function isDeliveryStateIsMEOrNH(anOrder) {
+  return [
+    'ME',
+    'NH',
+  ].includes(anOrder.deliveryState);
+}
+
+function isDeliveryStateIsMAOrCTorNY(anOrder) {
+  return [
+    'MA',
+    'CT',
+    'NY',
+  ].includes(anOrder.deliveryState);
+}
+
+function plusDay(anOrder, deliveryTime, plusNum) {
+  return anOrder.placedOn.plusDays(plusNum + deliveryTime);
+}
+
+function isDeliveryStateIsNYOrNH(anOrder) {
+  return [
+    'NY',
+    'NH',
+  ].includes(anOrder.deliveryState);
+}
+
+function isDeliveryStateIsMAOrCT(anOrder) {
+  return [
+    'MA',
+    'CT',
+  ].includes(anOrder.deliveryState);
 }
